@@ -1,8 +1,10 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BJ's Store | Official</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&amp;family=Plus+Jakarta+Sans:wght@400;600;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --p: #00ff88;
@@ -32,7 +34,6 @@
         .brand { font-family: 'Syncopate', sans-serif; font-size: 1.2rem; cursor: pointer; letter-spacing: 2px; }
         .brand span { color: var(--p); }
 
-        /* --- STORE GRID --- */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; padding: 40px 6%; }
         .card {
             background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
@@ -45,7 +46,6 @@
         }
         .card img { width: 50px; height: 50px; object-fit: contain; }
 
-        /* --- ORGANIZED ADMIN DASHBOARD --- */
         #admin-dash {
             display: none; padding: 40px 6%; background: #000; border-bottom: 2px solid var(--p);
             animation: slideDown 0.4s ease;
@@ -57,11 +57,10 @@
         .admin-box { background: var(--surface); padding: 20px; border-radius: 15px; border: 1px solid var(--border); }
         .admin-input-group { margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
         .admin-input { 
-            width: 80px; background: #111; border: 1px solid var(--border); 
-            color: var(--p); padding: 8px; border-radius: 8px; text-align: center; font-weight: 800;
+            width: 85px; background: #111; border: 1px solid var(--border); 
+            color: var(--p); padding: 8px; border-radius: 8px; text-align: center; font-weight: 800; font-size: 0.7rem;
         }
 
-        /* --- UI COMPONENTS --- */
         .btn { padding: 12px 20px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; }
         .btn-p { background: var(--p); color: #000; }
         .btn-outline { background: transparent; border: 1px solid var(--p); color: var(--p); width: 100%; }
@@ -72,75 +71,23 @@
         .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--surface); border: 1px solid var(--border); padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; z-index: 2200; display: none; }
 
         .pack-row { display: flex; justify-content: space-between; padding: 15px; background: var(--glass); border-radius: 10px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
-        .pack-row:hover { background: rgba(0,255,136,0.1); border-left: 4px solid var(--p); }
+        .pack-row:hover:not(.oos) { background: rgba(0,255,136,0.1); border-left: 4px solid var(--p); }
+        .pack-row.oos { opacity: 0.5; cursor: not-allowed; border: 1px dashed var(--border); }
 
         @media (max-width: 600px) { .grid { grid-template-columns: 1fr 1fr; gap: 15px; } .drawer { width: 100%; } }
     </style>
 </head>
 <body>
 
-<div id="admin-dash" style="display: none;">
+<div id="admin-dash">
     <div class="admin-header">
-        <h2 style="font-family:'Syncopate'; color:var(--p)">MANAGEMENT CONSOLE</h2>
-        <button class="btn" style="background:#ff4444; color:#fff" onclick="closeAdmin()">EXIT &amp; SAVE</button>
+        <div>
+            <h2 style="font-family:'Syncopate'; color:var(--p)">MANAGEMENT CONSOLE</h2>
+            <p style="font-size: 0.7rem; color: var(--text-muted)">Type "OUT OF STOCK" to disable a pack.</p>
+        </div>
+        <button class="btn" style="background:#ff4444; color:#fff" onclick="closeAdmin()">CLOSE</button>
     </div>
-    <div class="admin-grid" id="admin-editor-content"><div class="admin-box"><h4>Roblox</h4><hr style="opacity:0.1; margin:10px 0">
-                    <div class="admin-input-group">
-                        <small>1000 Robux</small>
-                        <input type="text" class="admin-input" value="12" oninput="savePrice(0, 0, this.value)">
-                    </div>
-                    <div class="admin-input-group">
-                        <small>2000 Robux</small>
-                        <input type="text" class="admin-input" value="23" oninput="savePrice(0, 1, this.value)">
-                    </div></div><div class="admin-box"><h4>Riot Client</h4><hr style="opacity:0.1; margin:10px 0">
-                    <div class="admin-input-group">
-                        <small>1000 RP</small>
-                        <input type="text" class="admin-input" value="13" oninput="savePrice(1, 0, this.value)">
-                    </div>
-                    <div class="admin-input-group">
-                        <small>2500 RP</small>
-                        <input type="text" class="admin-input" value="31" oninput="savePrice(1, 1, this.value)">
-                    </div></div><div class="admin-box"><h4>EA App</h4><hr style="opacity:0.1; margin:10px 0">
-                    <div class="admin-input-group">
-                        <small>$15 Card</small>
-                        <input type="text" class="admin-input" value="17" oninput="savePrice(2, 0, this.value)">
-                    </div>
-                    <div class="admin-input-group">
-                        <small>$25 Card</small>
-                        <input type="text" class="admin-input" value="28" oninput="savePrice(2, 1, this.value)">
-                    </div></div><div class="admin-box"><h4>FC 26 Points</h4><hr style="opacity:0.1; margin:10px 0">
-                    <div class="admin-input-group">
-                        <small>1050 Points</small>
-                        <input type="text" class="admin-input" value="OUT OF STOCK" oninput="savePrice(3, 0, this.value)">
-                    </div>
-                    <div class="admin-input-group">
-                        <small>2800 Points</small>
-                        <input type="text" class="admin-input" value="OUT OF STOCK" oninput="savePrice(3, 1, this.value)">
-                    </div></div><div class="admin-box"><h4>Steam Card</h4><hr style="opacity:0.1; margin:10px 0">
-                    <div class="admin-input-group">
-                        <small>$10 Wallet</small>
-                        <input type="text" class="admin-input" value="13" oninput="savePrice(4, 0, this.value)">
-                    </div>
-                    <div class="admin-input-group">
-                        <small>$20 Wallet</small>
-                        <input type="text" class="admin-input" value="24" oninput="savePrice(4, 1, this.value)">
-                    </div></div><div class="admin-box"><h4>Xbox Link</h4><hr style="opacity:0.1; margin:10px 0">
-                    <div class="admin-input-group">
-                        <small>$10 Gift Card</small>
-                        <input type="text" class="admin-input" value="12" oninput="savePrice(5, 0, this.value)">
-                    </div>
-                    <div class="admin-input-group">
-                        <small>$25 Gift Card</small>
-                        <input type="text" class="admin-input" value="28" oninput="savePrice(5, 1, this.value)">
-                    </div></div><div class="admin-box"><h4>Discord Nitro</h4><hr style="opacity:0.1; margin:10px 0">
-                    <div class="admin-input-group">
-                        <small>1 Month Boost</small>
-                        <input type="text" class="admin-input" value="12" oninput="savePrice(6, 0, this.value)">
-                    </div></div><div class="admin-box"><h4>PlayStation</h4><hr style="opacity:0.1; margin:10px 0">
-                    <div class="admin-input-group">
-                        <small>$10 PSN</small>
-                        <input type="text" class="admin-input" value="12" oninput="savePrice(7, 0, this.value)">
-                    </div></div></div>
+    <div class="admin-grid" id="admin-editor-content"></div>
 </div>
 
 <nav>
@@ -151,49 +98,9 @@
     </div>
 </nav>
 
-<div class="grid" id="store-grid">
-                <div class="card">
-                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3>Roblox</h3>
-                    <button class="btn btn-outline" onclick="openPack(0)">SELECT PACK</button>
-                </div>
-                <div class="card">
-                    <div class="card-img-wrap"><img src="https://cdn-icons-png.flaticon.com/512/702/702115.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3>Riot Client</h3>
-                    <button class="btn btn-outline" onclick="openPack(1)">SELECT PACK</button>
-                </div>
-                <div class="card">
-                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic-Arts-Logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3>EA App</h3>
-                    <button class="btn btn-outline" onclick="openPack(2)">SELECT PACK</button>
-                </div>
-                <div class="card">
-                    <div class="card-img-wrap"><img src="https://cdn-icons-png.flaticon.com/512/702/702115.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3>FC 26 Points</h3>
-                    <button class="btn btn-outline" onclick="openPack(3)">SELECT PACK</button>
-                </div>
-                <div class="card">
-                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3>Steam Card</h3>
-                    <button class="btn btn-outline" onclick="openPack(4)">SELECT PACK</button>
-                </div>
-                <div class="card">
-                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3>Xbox Link</h3>
-                    <button class="btn btn-outline" onclick="openPack(5)">SELECT PACK</button>
-                </div>
-                <div class="card">
-                    <div class="card-img-wrap"><img src="https://www.svgrepo.com/show/353655/discord-icon.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3>Discord Nitro</h3>
-                    <button class="btn btn-outline" onclick="openPack(6)">SELECT PACK</button>
-                </div>
-                <div class="card">
-                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3>PlayStation</h3>
-                    <button class="btn btn-outline" onclick="openPack(7)">SELECT PACK</button>
-                </div><div class="card" style="border:1px dashed var(--border); opacity:0.6"><h3>+ MORE COMING</h3></div></div>
+<div class="grid" id="store-grid"></div>
 
-<div class="overlay" id="sys-overlay" onclick="closeAll()" style="display: none;"></div>
+<div class="overlay" id="sys-overlay" onclick="closeAll()"></div>
 
 <div class="drawer" id="cart-drawer">
     <div style="padding:25px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between">
@@ -210,25 +117,25 @@
     </div>
 </div>
 
-<div class="modal" id="pack-modal" style="display: none;">
-    <h2 id="m-title" style="margin-bottom:20px; text-align:center; font-family:'Syncopate'; font-size:1rem">Roblox</h2>
-    <div id="m-opts"><div class="pack-row" onclick="add('Roblox','1000 Robux','12')"><span>1000 Robux</span><b>$12</b></div><div class="pack-row" onclick="add('Roblox','2000 Robux','23')"><span>2000 Robux</span><b>$23</b></div></div>
+<div class="modal" id="pack-modal">
+    <h2 id="m-title" style="margin-bottom:20px; text-align:center; font-family:'Syncopate'; font-size:1rem"></h2>
+    <div id="m-opts"></div>
     <button class="btn" style="width:100%; margin-top:15px; color:var(--text-muted)" onclick="closeAll()">GO BACK</button>
 </div>
 
 <script>
-    const DEFAULT_DB = [
-        { n: "Roblox", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg", pk: [{l: "1000 Robux", p: "10"}, {l: "2000 Robux", p: "20"}] },
-        { n: "Riot Client", img: "https://upload.wikimedia.org/wikipedia/commons/1/11/Riot_Games_logo_icon.svg", pk: [{l: "1000 RP", p: "10"}, {l: "2500 RP", p: "25"}] },
-        { n: "EA App", img: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic-Arts-Logo.svg", pk: [{l: "$15 Card", p: "15"}, {l: "$25 Card", p: "25"}] },
-        { n: "FC 26 Points", img: "https://media.rawg.io/media/games/052/052ccae9ef18037f485f6170087a5f48.jpg", pk: [{l: "1050 Points", p: "12"}, {l: "2800 Points", p: "25"}] },
-        { n: "Steam Card", img: "https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg", pk: [{l: "$10 Wallet", p: "11"}, {l: "$20 Wallet", p: "22"}] },
-        { n: "Xbox Link", img: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg", pk: [{l: "$10 Gift Card", p: "10"}, {l: "$25 Gift Card", p: "25"}] },
-        { n: "Discord Nitro", img: "https://www.svgrepo.com/show/353655/discord-icon.svg", pk: [{l: "1 Month Boost", p: "10"}] },
-        { n: "PlayStation", img: "https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg", pk: [{l: "$10 PSN", p: "11"}] }
+    /* --- SYNCED WITH YOUR SCREENSHOTS --- */
+    const storeData = [
+        { n: "Roblox", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg", pk: [{l: "1000 Robux", p: "12"}, {l: "2000 Robux", p: "23"}] },
+        { n: "Riot Client", img: "https://static.wikia.nocookie.net/logopedia/images/d/d4/Riot_Games_2022.svg", pk: [{l: "1000 RP", p: "13"}, {l: "2500 RP", p: "31"}] },
+        { n: "EA App", img: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic-Arts-Logo.svg", pk: [{l: "$15 Card", p: "17"}, {l: "$25 Card", p: "28"}] },
+        { n: "FC 26 Points", img: "https://media.rawg.io/media/games/052/052ccae9ef18037f485f6170087a5f48.jpg", pk: [{l: "1050 Points", p: "OUT OF STOCK"}, {l: "2800 Points", p: "OUT OF STOCK"}] },
+        { n: "Steam Card", img: "https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg", pk: [{l: "$10 Wallet", p: "13"}, {l: "$20 Wallet", p: "24"}] },
+        { n: "Xbox Link", img: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg", pk: [{l: "$10 Gift Card", p: "12"}, {l: "$25 Gift Card", p: "28"}] },
+        { n: "Discord Nitro", img: "https://www.svgrepo.com/show/353655/discord-icon.svg", pk: [{l: "1 Month Boost", p: "12"}] },
+        { n: "PlayStation", img: "https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg", pk: [{l: "$10 PSN", p: "12"}] }
     ];
 
-    let storeData = JSON.parse(localStorage.getItem("bj_v22_db")) || DEFAULT_DB;
     let basket = [];
 
     function renderStore() {
@@ -251,7 +158,12 @@
         const box = document.getElementById('m-opts');
         box.innerHTML = '';
         it.pk.forEach(p => {
-            box.innerHTML += `<div class="pack-row" onclick="add('${it.n}','${p.l}','${p.p}')"><span>${p.l}</span><b>$${p.p}</b></div>`;
+            const isOOS = p.p.toUpperCase() === "OUT OF STOCK";
+            box.innerHTML += `
+                <div class="pack-row ${isOOS ? 'oos' : ''}" onclick="${isOOS ? '' : `add('${it.n}','${p.l}','${p.p}')`}">
+                    <span>${p.l}</span>
+                    <b>${isOOS ? 'OOS' : '$'+p.p}</b>
+                </div>`;
         });
         document.getElementById('sys-overlay').style.display = 'block';
         document.getElementById('pack-modal').style.display = 'block';
@@ -277,14 +189,11 @@
         document.getElementById('cart-total').innerText = `$${total.toFixed(2)}`;
     }
 
-    /* --- CLEAN ADMIN LOGIC --- */
     function authAdmin() {
         if(prompt("Enter Admin PIN:") === "1234") {
             document.getElementById('admin-dash').style.display = 'block';
             renderAdmin();
             window.scrollTo({top: 0, behavior: 'smooth'});
-        } else {
-            alert("Unauthorized");
         }
     }
 
@@ -297,7 +206,7 @@
                 itemHtml += `
                     <div class="admin-input-group">
                         <small>${p.l}</small>
-                        <input type="text" class="admin-input" value="${p.p}" oninput="savePrice(${i}, ${pi}, this.value)">
+                        <input type="text" class="admin-input" value="${p.p}" oninput="updateLivePrice(${i}, ${pi}, this.value)">
                     </div>`;
             });
             itemHtml += `</div>`;
@@ -305,9 +214,8 @@
         });
     }
 
-    function savePrice(itIdx, pkIdx, val) {
+    function updateLivePrice(itIdx, pkIdx, val) {
         storeData[itIdx].pk[pkIdx].p = val;
-        localStorage.setItem("bj_v22_db", JSON.stringify(storeData));
         renderStore();
     }
 
@@ -333,5 +241,5 @@
 
     renderStore();
 </script>
-
-</body></html>
+</body>
+</html>
