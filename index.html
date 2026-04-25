@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BJ's Store | Official</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&amp;family=Plus+Jakarta+Sans:wght@400;600;800&amp;display=swap" rel="stylesheet">
     <style>
         :root {
             --p: #00ff88;
@@ -81,12 +79,68 @@
 </head>
 <body>
 
-<div id="admin-dash">
+<div id="admin-dash" style="display: none;">
     <div class="admin-header">
         <h2 style="font-family:'Syncopate'; color:var(--p)">MANAGEMENT CONSOLE</h2>
-        <button class="btn" style="background:#ff4444; color:#fff" onclick="closeAdmin()">EXIT & SAVE</button>
+        <button class="btn" style="background:#ff4444; color:#fff" onclick="closeAdmin()">EXIT &amp; SAVE</button>
     </div>
-    <div class="admin-grid" id="admin-editor-content"></div>
+    <div class="admin-grid" id="admin-editor-content"><div class="admin-box"><h4>Roblox</h4><hr style="opacity:0.1; margin:10px 0">
+                    <div class="admin-input-group">
+                        <small>1000 Robux</small>
+                        <input type="text" class="admin-input" value="12" oninput="savePrice(0, 0, this.value)">
+                    </div>
+                    <div class="admin-input-group">
+                        <small>2000 Robux</small>
+                        <input type="text" class="admin-input" value="23" oninput="savePrice(0, 1, this.value)">
+                    </div></div><div class="admin-box"><h4>Riot Client</h4><hr style="opacity:0.1; margin:10px 0">
+                    <div class="admin-input-group">
+                        <small>1000 RP</small>
+                        <input type="text" class="admin-input" value="13" oninput="savePrice(1, 0, this.value)">
+                    </div>
+                    <div class="admin-input-group">
+                        <small>2500 RP</small>
+                        <input type="text" class="admin-input" value="31" oninput="savePrice(1, 1, this.value)">
+                    </div></div><div class="admin-box"><h4>EA App</h4><hr style="opacity:0.1; margin:10px 0">
+                    <div class="admin-input-group">
+                        <small>$15 Card</small>
+                        <input type="text" class="admin-input" value="17" oninput="savePrice(2, 0, this.value)">
+                    </div>
+                    <div class="admin-input-group">
+                        <small>$25 Card</small>
+                        <input type="text" class="admin-input" value="28" oninput="savePrice(2, 1, this.value)">
+                    </div></div><div class="admin-box"><h4>FC 26 Points</h4><hr style="opacity:0.1; margin:10px 0">
+                    <div class="admin-input-group">
+                        <small>1050 Points</small>
+                        <input type="text" class="admin-input" value="OUT OF STOCK" oninput="savePrice(3, 0, this.value)">
+                    </div>
+                    <div class="admin-input-group">
+                        <small>2800 Points</small>
+                        <input type="text" class="admin-input" value="OUT OF STOCK" oninput="savePrice(3, 1, this.value)">
+                    </div></div><div class="admin-box"><h4>Steam Card</h4><hr style="opacity:0.1; margin:10px 0">
+                    <div class="admin-input-group">
+                        <small>$10 Wallet</small>
+                        <input type="text" class="admin-input" value="13" oninput="savePrice(4, 0, this.value)">
+                    </div>
+                    <div class="admin-input-group">
+                        <small>$20 Wallet</small>
+                        <input type="text" class="admin-input" value="24" oninput="savePrice(4, 1, this.value)">
+                    </div></div><div class="admin-box"><h4>Xbox Link</h4><hr style="opacity:0.1; margin:10px 0">
+                    <div class="admin-input-group">
+                        <small>$10 Gift Card</small>
+                        <input type="text" class="admin-input" value="12" oninput="savePrice(5, 0, this.value)">
+                    </div>
+                    <div class="admin-input-group">
+                        <small>$25 Gift Card</small>
+                        <input type="text" class="admin-input" value="28" oninput="savePrice(5, 1, this.value)">
+                    </div></div><div class="admin-box"><h4>Discord Nitro</h4><hr style="opacity:0.1; margin:10px 0">
+                    <div class="admin-input-group">
+                        <small>1 Month Boost</small>
+                        <input type="text" class="admin-input" value="12" oninput="savePrice(6, 0, this.value)">
+                    </div></div><div class="admin-box"><h4>PlayStation</h4><hr style="opacity:0.1; margin:10px 0">
+                    <div class="admin-input-group">
+                        <small>$10 PSN</small>
+                        <input type="text" class="admin-input" value="12" oninput="savePrice(7, 0, this.value)">
+                    </div></div></div>
 </div>
 
 <nav>
@@ -97,9 +151,49 @@
     </div>
 </nav>
 
-<div class="grid" id="store-grid"></div>
+<div class="grid" id="store-grid">
+                <div class="card">
+                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
+                    <h3>Roblox</h3>
+                    <button class="btn btn-outline" onclick="openPack(0)">SELECT PACK</button>
+                </div>
+                <div class="card">
+                    <div class="card-img-wrap"><img src="https://cdn-icons-png.flaticon.com/512/702/702115.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
+                    <h3>Riot Client</h3>
+                    <button class="btn btn-outline" onclick="openPack(1)">SELECT PACK</button>
+                </div>
+                <div class="card">
+                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic-Arts-Logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
+                    <h3>EA App</h3>
+                    <button class="btn btn-outline" onclick="openPack(2)">SELECT PACK</button>
+                </div>
+                <div class="card">
+                    <div class="card-img-wrap"><img src="https://cdn-icons-png.flaticon.com/512/702/702115.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
+                    <h3>FC 26 Points</h3>
+                    <button class="btn btn-outline" onclick="openPack(3)">SELECT PACK</button>
+                </div>
+                <div class="card">
+                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
+                    <h3>Steam Card</h3>
+                    <button class="btn btn-outline" onclick="openPack(4)">SELECT PACK</button>
+                </div>
+                <div class="card">
+                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
+                    <h3>Xbox Link</h3>
+                    <button class="btn btn-outline" onclick="openPack(5)">SELECT PACK</button>
+                </div>
+                <div class="card">
+                    <div class="card-img-wrap"><img src="https://www.svgrepo.com/show/353655/discord-icon.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
+                    <h3>Discord Nitro</h3>
+                    <button class="btn btn-outline" onclick="openPack(6)">SELECT PACK</button>
+                </div>
+                <div class="card">
+                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
+                    <h3>PlayStation</h3>
+                    <button class="btn btn-outline" onclick="openPack(7)">SELECT PACK</button>
+                </div><div class="card" style="border:1px dashed var(--border); opacity:0.6"><h3>+ MORE COMING</h3></div></div>
 
-<div class="overlay" id="sys-overlay" onclick="closeAll()"></div>
+<div class="overlay" id="sys-overlay" onclick="closeAll()" style="display: none;"></div>
 
 <div class="drawer" id="cart-drawer">
     <div style="padding:25px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between">
@@ -116,9 +210,9 @@
     </div>
 </div>
 
-<div class="modal" id="pack-modal">
-    <h2 id="m-title" style="margin-bottom:20px; text-align:center; font-family:'Syncopate'; font-size:1rem"></h2>
-    <div id="m-opts"></div>
+<div class="modal" id="pack-modal" style="display: none;">
+    <h2 id="m-title" style="margin-bottom:20px; text-align:center; font-family:'Syncopate'; font-size:1rem">Roblox</h2>
+    <div id="m-opts"><div class="pack-row" onclick="add('Roblox','1000 Robux','12')"><span>1000 Robux</span><b>$12</b></div><div class="pack-row" onclick="add('Roblox','2000 Robux','23')"><span>2000 Robux</span><b>$23</b></div></div>
     <button class="btn" style="width:100%; margin-top:15px; color:var(--text-muted)" onclick="closeAll()">GO BACK</button>
 </div>
 
@@ -239,5 +333,5 @@
 
     renderStore();
 </script>
-</body>
-</html>
+
+</body></html>
