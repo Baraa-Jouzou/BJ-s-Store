@@ -3,300 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baraa | Elite TopUp</title>
+    <title>BJ's Store | Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #25D366;
-            --accent: #00f2ff;
-            --bg: #050505;
-            --card-bg: #111111;
-            --border: #222222;
+            --p: #00ff88;
+            --p-glow: rgba(0, 255, 136, 0.3);
+            --bg: #030303;
+            --surface: #0a0a0c;
+            --glass: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.08);
             --text: #ffffff;
+            --text-muted: #888888;
         }
 
-        .neon-mode {
-            --bg: #0a0118;
-            --card-bg: #1a0b2e;
-            --border: #442288;
-            --accent: #ff00ff;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--p); border-radius: 10px; }
+
+        body {
+            background: var(--bg); color: var(--text); min-height: 100vh;
+            background-image: radial-gradient(circle at 50% 0%, rgba(0, 255, 136, 0.05), transparent 60%);
         }
 
-        * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; transition: 0.3s ease; }
-        
-        body { 
-            margin: 0; background: var(--bg); color: var(--text); 
-            overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 50%, rgba(37, 211, 102, 0.05) 0%, transparent 80%);
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 6%; background: rgba(3, 3, 3, 0.85); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000;
         }
+        .brand { font-family: 'Syncopate', sans-serif; font-size: 1.2rem; cursor: pointer; letter-spacing: 2px; }
+        .brand span { color: var(--p); }
 
-        /* Anti-Twitch Image Fix */
-        .img-container {
-            width: 100px; height: 100px; margin: 0 auto 15px;
-            display: flex; align-items: center; justify-content: center;
-            background: #000; border-radius: 20px; overflow: hidden;
-            border: 1px solid var(--border);
-            will-change: transform;
-        }
-        .img-container img { 
-            max-width: 80%; max-height: 80%; 
-            object-fit: contain;
-            backface-visibility: hidden;
-        }
-
-        header {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px);
-            display: flex; justify-content: space-between;
-            padding: 15px 5%; align-items: center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .btn {
-            border: none; padding: 10px 20px; border-radius: 12px;
-            font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;
-        }
-        .btn-p { background: var(--primary); color: white; }
-        .btn-s { background: var(--card-bg); color: white; border: 1px solid var(--border); }
-        .btn:hover { transform: translateY(-2px); filter: brightness(1.2); box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
-
-        .grid {
-            display: grid; padding: 40px 5%;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 25px;
-        }
-
+        /* --- STORE GRID --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; padding: 40px 6%; }
         .card {
-            background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 30px; padding: 30px; text-align: center;
-            position: relative;
+            background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+            padding: 30px; text-align: center; transition: 0.3s;
         }
-        .card:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--border); }
+        .card:hover { border-color: var(--p); transform: translateY(-5px); }
+        .card-img-wrap {
+            width: 80px; height: 80px; margin: 0 auto 20px; background: #fff;
+            border-radius: 18px; display: flex; align-items: center; justify-content: center;
+        }
+        .card img { width: 50px; height: 50px; object-fit: contain; }
 
-        .stock-tag {
-            font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
-            color: var(--primary); background: rgba(37, 211, 102, 0.1);
-            padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px;
+        /* --- ORGANIZED ADMIN DASHBOARD --- */
+        #admin-dash {
+            display: none; padding: 40px 6%; background: #000; border-bottom: 2px solid var(--p);
+            animation: slideDown 0.4s ease;
         }
-
-        /* Drawer System */
-        .drawer {
-            position: fixed; top: 0; width: 400px; max-width: 90vw; height: 100%;
-            background: var(--bg); z-index: 200; padding: 40px;
-            border-left: 1px solid var(--border); transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .drawer.right { right: 0; transform: translateX(100%); }
-        .drawer.left { left: 0; transform: translateX(-100%); }
-        .drawer.open { transform: translateX(0); }
-
-        .overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-            display: none; z-index: 150; backdrop-filter: blur(5px);
-        }
-
-        /* Modal */
-        .modal {
-            position: fixed; inset: 0; display: none;
-            justify-content: center; align-items: center; z-index: 300;
-        }
-        .modal-box {
-            background: var(--card-bg); padding: 40px; border-radius: 35px;
-            width: 90%; max-width: 450px; border: 1px solid var(--border);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        @keyframes slideDown { from { opacity:0; transform: translateY(-20px); } to { opacity:1; transform: translateY(0); } }
+        
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .admin-box { background: var(--surface); padding: 20px; border-radius: 15px; border: 1px solid var(--border); }
+        .admin-input-group { margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+        .admin-input { 
+            width: 80px; background: #111; border: 1px solid var(--border); 
+            color: var(--p); padding: 8px; border-radius: 8px; text-align: center; font-weight: 800;
         }
 
-        .pack-item {
-            background: var(--bg); border: 1px solid var(--border);
-            padding: 18px; border-radius: 15px; margin: 10px 0;
-            display: flex; justify-content: space-between; cursor: pointer;
-        }
-        .pack-item:hover { border-color: var(--primary); background: rgba(255,255,255,0.05); }
+        /* --- UI COMPONENTS --- */
+        .btn { padding: 12px 20px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; }
+        .btn-p { background: var(--p); color: #000; }
+        .btn-outline { background: transparent; border: 1px solid var(--p); color: var(--p); width: 100%; }
+        
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; z-index: 2000; }
+        .drawer { position: fixed; top: 0; right: -100%; width: 400px; max-width: 100%; height: 100%; background: var(--surface); z-index: 2100; transition: 0.4s; display: flex; flex-direction: column; }
+        .drawer.open { right: 0; }
+        .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--surface); border: 1px solid var(--border); padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; z-index: 2200; display: none; }
 
-        .search-area { padding: 20px 5% 0; display: flex; gap: 10px; }
-        input { 
-            flex: 1; padding: 15px; border-radius: 15px; 
-            background: var(--card-bg); border: 1px solid var(--border); color: white;
-        }
+        .pack-row { display: flex; justify-content: space-between; padding: 15px; background: var(--glass); border-radius: 10px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
+        .pack-row:hover { background: rgba(0,255,136,0.1); border-left: 4px solid var(--p); }
+
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr 1fr; gap: 15px; } .drawer { width: 100%; } }
     </style>
 </head>
 <body>
 
-<header>
-    <div style="font-size: 1.5rem; font-weight: 800;">BARAA <span style="color:var(--primary)">PRO</span></div>
-    <div style="display:flex; gap:10px;">
-        <button class="btn btn-s" onclick="document.body.classList.toggle('neon-mode')">✨ Style</button>
-        <button class="btn btn-s" onclick="toggleD('admin', true)">Admin</button>
-        <button class="btn btn-p" onclick="toggleD('cart', true)">🛒 <span id="cart-count">0</span></button>
+<div id="admin-dash">
+    <div class="admin-header">
+        <h2 style="font-family:'Syncopate'; color:var(--p)">MANAGEMENT CONSOLE</h2>
+        <button class="btn" style="background:#ff4444; color:#fff" onclick="closeAdmin()">EXIT & SAVE</button>
     </div>
-</header>
-
-<div class="search-area">
-    <input type="text" id="search" placeholder="Search for cards..." oninput="render()">
+    <div class="admin-grid" id="admin-editor-content"></div>
 </div>
 
-<div class="grid" id="main-grid"></div>
+<nav>
+    <div class="brand" onclick="location.reload()">BJ'S<span> STORE</span></div>
+    <div style="display:flex; gap:10px">
+        <button class="btn" style="background:var(--glass); color:#fff" onclick="authAdmin()">⚙️ ADMIN</button>
+        <button class="btn btn-p" onclick="toggleDrawer('cart-drawer', true)">🛒 <span id="cart-count">0</span></button>
+    </div>
+</nav>
 
-<div class="overlay" id="overlay" onclick="closeAll()"></div>
+<div class="grid" id="store-grid"></div>
 
-<div class="drawer right" id="cart-drawer">
-    <h2>Your Order</h2>
-    <div id="cart-list" style="margin: 20px 0;"></div>
-    <div style="border-top: 1px solid var(--border); padding-top: 20px;">
-        <div style="display:flex; justify-content:space-between; font-size:1.5rem; margin-bottom:20px;">
-            <span>Total:</span>
-            <b id="total-price">$0</b>
+<div class="overlay" id="sys-overlay" onclick="closeAll()"></div>
+
+<div class="drawer" id="cart-drawer">
+    <div style="padding:25px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between">
+        <h2 style="font-family:'Syncopate'; font-size:1rem">YOUR BASKET</h2>
+        <span onclick="closeAll()" style="cursor:pointer">✕</span>
+    </div>
+    <div id="cart-items" style="flex:1; overflow-y:auto; padding:25px"></div>
+    <div style="padding:25px; border-top:1px solid var(--border)">
+        <div style="display:flex; justify-content:space-between; margin-bottom:20px">
+            <span style="color:var(--text-muted)">TOTAL</span>
+            <b id="cart-total" style="color:var(--p); font-size:1.5rem">$0.00</b>
         </div>
-        <button class="btn btn-p" style="width:100%; justify-content:center; padding:18px;" onclick="checkout()">Checkout on WhatsApp</button>
+        <button class="btn btn-p" style="width:100%" onclick="checkout()">ORDER VIA WHATSAPP</button>
     </div>
 </div>
 
-<div class="drawer left" id="admin-drawer">
-    <h2>Admin Panel</h2>
-    <input type="password" id="pass" placeholder="Password">
-    <button class="btn btn-p" style="width:100%; justify-content:center" onclick="login()">Enter</button>
-    <div id="admin-editor" style="display:none; margin-top:30px;">
-        <button class="btn btn-s" style="width:100%; color:red" onclick="reset()">Reset Everything</button>
-        <div id="price-fields"></div>
-    </div>
-</div>
-
-<div class="modal" id="modal">
-    <div class="modal-box">
-        <h2 id="modal-title" style="margin-top:0"></h2>
-        <div id="modal-options"></div>
-        <button class="btn btn-s" style="width:100%; justify-content:center; margin-top:20px" onclick="closeAll()">Close</button>
-    </div>
+<div class="modal" id="pack-modal">
+    <h2 id="m-title" style="margin-bottom:20px; text-align:center; font-family:'Syncopate'; font-size:1rem"></h2>
+    <div id="m-opts"></div>
+    <button class="btn" style="width:100%; margin-top:15px; color:var(--text-muted)" onclick="closeAll()">GO BACK</button>
 </div>
 
 <script>
-    const DATA = {
-        phone: "96181094708",
-        pass: "1234",
-        defaults: [
-            { name: "Roblox", img: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Roblox_Logo_2022.jpg", packs: [{l: "800 Robux", p: 10}, {l: "1700 Robux", p: 20}] },
-            { name: "Steam", img: "https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg", packs: [{l: "$5 Card", p: 6}, {l: "$20 Card", p: 22}] },
-            { name: "PlayStation", img: "https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg", packs: [{l: "$10 Card", p: 10}, {l: "$50 Card", p: 50}] },
-            { name: "Netflix", img: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg", packs: [{l: "$25 Card", p: 25}, {l: "$50 Card", p: 50}] },
-            { name: "Xbox", img: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg", packs: [{l: "$10 Card", p: 10}, {l: "$25 Card", p: 25}] },
-            { name: "iTunes", img: "https://upload.wikimedia.org/wikipedia/commons/d/df/ITunes_logo.svg", packs: [{l: "$5 Card", p: 6}, {l: "$10 Card", p: 11}] }
-        ]
-    };
+    const DEFAULT_DB = [
+        { n: "Roblox", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg", pk: [{l: "1000 Robux", p: "10"}, {l: "2000 Robux", p: "20"}] },
+        { n: "Riot Client", img: "https://upload.wikimedia.org/wikipedia/commons/1/11/Riot_Games_logo_icon.svg", pk: [{l: "1000 RP", p: "10"}, {l: "2500 RP", p: "25"}] },
+        { n: "EA App", img: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic-Arts-Logo.svg", pk: [{l: "$15 Card", p: "15"}, {l: "$25 Card", p: "25"}] },
+        { n: "FC 26 Points", img: "https://media.rawg.io/media/games/052/052ccae9ef18037f485f6170087a5f48.jpg", pk: [{l: "1050 Points", p: "12"}, {l: "2800 Points", p: "25"}] },
+        { n: "Steam Card", img: "https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg", pk: [{l: "$10 Wallet", p: "11"}, {l: "$20 Wallet", p: "22"}] },
+        { n: "Xbox Link", img: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg", pk: [{l: "$10 Gift Card", p: "10"}, {l: "$25 Gift Card", p: "25"}] },
+        { n: "Discord Nitro", img: "https://www.svgrepo.com/show/353655/discord-icon.svg", pk: [{l: "1 Month Boost", p: "10"}] },
+        { n: "PlayStation", img: "https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg", pk: [{l: "$10 PSN", p: "11"}] }
+    ];
 
-    let items = JSON.parse(localStorage.getItem("baraa_v4")) || DATA.defaults;
-    let cart = [];
+    let storeData = JSON.parse(localStorage.getItem("bj_v22_db")) || DEFAULT_DB;
+    let basket = [];
 
-    function render() {
-        const grid = document.getElementById('main-grid');
-        const q = document.getElementById('search').value.toLowerCase();
+    function renderStore() {
+        const grid = document.getElementById('store-grid');
         grid.innerHTML = '';
-        
-        items.forEach((item, idx) => {
-            if(q && !item.name.toLowerCase().includes(q)) return;
+        storeData.forEach((it, i) => {
             grid.innerHTML += `
                 <div class="card">
-                    <div class="stock-tag">Instock</div>
-                    <div class="img-container">
-                        <img src="${item.img}" alt="${item.name}">
-                    </div>
-                    <h3 style="margin:0 0 20px 0">${item.name}</h3>
-                    <button class="btn btn-p" style="width:100%; justify-content:center" onclick="openPacks(${idx})">Select Pack</button>
-                </div>
-            `;
+                    <div class="card-img-wrap"><img src="${it.img}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
+                    <h3>${it.n}</h3>
+                    <button class="btn btn-outline" onclick="openPack(${i})">SELECT PACK</button>
+                </div>`;
         });
+        grid.innerHTML += `<div class="card" style="border:1px dashed var(--border); opacity:0.6"><h3>+ MORE COMING</h3></div>`;
     }
 
-    function openPacks(idx) {
-        const item = items[idx];
-        document.getElementById('modal-title').innerText = item.name;
-        const box = document.getElementById('modal-options');
+    function openPack(i) {
+        const it = storeData[i];
+        document.getElementById('m-title').innerText = it.n;
+        const box = document.getElementById('m-opts');
         box.innerHTML = '';
-        item.packs.forEach(p => {
-            box.innerHTML += `
-                <div class="pack-item" onclick="add('${item.name}', '${p.l}', ${p.p})">
-                    <span>${p.l}</span>
-                    <b style="color:var(--primary)">$${p.p}</b>
-                </div>
-            `;
+        it.pk.forEach(p => {
+            box.innerHTML += `<div class="pack-row" onclick="add('${it.n}','${p.l}','${p.p}')"><span>${p.l}</span><b>$${p.p}</b></div>`;
         });
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('modal').style.display = 'flex';
+        document.getElementById('sys-overlay').style.display = 'block';
+        document.getElementById('pack-modal').style.display = 'block';
     }
 
-    function add(name, label, price) {
-        cart.push({name, label, price});
-        updateCart();
-        closeAll();
+    function add(n, l, p) {
+        basket.push({n, l, p});
+        updCart(); closeAll();
+        toggleDrawer('cart-drawer', true);
     }
 
-    function updateCart() {
-        document.getElementById('cart-count').innerText = cart.length;
-        const list = document.getElementById('cart-list');
-        let total = 0;
-        list.innerHTML = '';
-        cart.forEach((c, i) => {
-            total += c.price;
-            list.innerHTML += `
-                <div style="background:var(--card-bg); padding:15px; border-radius:15px; margin-bottom:10px; display:flex; justify-content:space-between">
-                    <span>${c.name} - ${c.label}</span>
-                    <b onclick="remove(${i})" style="color:red; cursor:pointer">✕</b>
-                </div>
-            `;
+    function updCart() {
+        document.getElementById('cart-count').innerText = basket.length;
+        const list = document.getElementById('cart-items');
+        let total = 0; list.innerHTML = '';
+        basket.forEach((x, i) => {
+            total += parseFloat(x.p);
+            list.innerHTML += `<div style="background:#000; padding:15px; border-radius:12px; margin-bottom:10px; display:flex; justify-content:space-between">
+                <div><b>${x.n}</b><br><small style="color:var(--text-muted)">${x.l}</small></div>
+                <div style="display:flex; gap:10px; align-items:center"><b>$${x.p}</b><span onclick="basket.splice(${i},1);updCart()" style="color:red; cursor:pointer">✕</span></div>
+            </div>`;
         });
-        document.getElementById('total-price').innerText = `$${total}`;
+        document.getElementById('cart-total').innerText = `$${total.toFixed(2)}`;
     }
 
-    function remove(i) { cart.splice(i, 1); updateCart(); }
+    /* --- CLEAN ADMIN LOGIC --- */
+    function authAdmin() {
+        if(prompt("Enter Admin PIN:") === "1234") {
+            document.getElementById('admin-dash').style.display = 'block';
+            renderAdmin();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        } else {
+            alert("Unauthorized");
+        }
+    }
 
-    function toggleD(id, show) {
-        document.getElementById(`${id}-drawer`).classList.toggle('open', show);
-        document.getElementById('overlay').style.display = show ? 'block' : 'none';
+    function renderAdmin() {
+        const content = document.getElementById('admin-editor-content');
+        content.innerHTML = '';
+        storeData.forEach((it, i) => {
+            let itemHtml = `<div class="admin-box"><h4>${it.n}</h4><hr style="opacity:0.1; margin:10px 0">`;
+            it.pk.forEach((p, pi) => {
+                itemHtml += `
+                    <div class="admin-input-group">
+                        <small>${p.l}</small>
+                        <input type="text" class="admin-input" value="${p.p}" oninput="savePrice(${i}, ${pi}, this.value)">
+                    </div>`;
+            });
+            itemHtml += `</div>`;
+            content.innerHTML += itemHtml;
+        });
+    }
+
+    function savePrice(itIdx, pkIdx, val) {
+        storeData[itIdx].pk[pkIdx].p = val;
+        localStorage.setItem("bj_v22_db", JSON.stringify(storeData));
+        renderStore();
+    }
+
+    function closeAdmin() { document.getElementById('admin-dash').style.display = 'none'; }
+
+    function toggleDrawer(id, state) {
+        if(state) document.getElementById('sys-overlay').style.display = 'block';
+        document.getElementById(id).classList.toggle('open', state);
     }
 
     function closeAll() {
-        document.querySelectorAll('.drawer').forEach(d => d.classList.remove('open'));
-        document.getElementById('modal').style.display = 'none';
-        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('sys-overlay').style.display = 'none';
+        document.getElementById('pack-modal').style.display = 'none';
+        document.getElementById('cart-drawer').classList.remove('open');
     }
-
-    function login() {
-        if(document.getElementById('pass').value === DATA.pass) {
-            document.getElementById('admin-editor').style.display = 'block';
-            loadAdmin();
-        } else alert("Wrong!");
-    }
-
-    function loadAdmin() {
-        const div = document.getElementById('price-fields');
-        div.innerHTML = '';
-        items.forEach((item, i) => {
-            item.packs.forEach((p, pi) => {
-                div.innerHTML += `
-                    <div style="margin:10px 0">
-                        <small>${item.name} ${p.l}</small>
-                        <input type="number" value="${p.p}" onchange="updatePrice(${i},${pi},this.value)">
-                    </div>
-                `;
-            });
-        });
-    }
-
-    function updatePrice(i, pi, val) {
-        items[i].packs[pi].p = Number(val);
-        localStorage.setItem("baraa_v4", JSON.stringify(items));
-        render();
-    }
-
-    function reset() { localStorage.removeItem("baraa_v4"); location.reload(); }
 
     function checkout() {
-        if(cart.length === 0) return alert("Empty cart!");
-        let total = 0;
-        let txt = "*BARAA STORE ORDER*%0A%0A";
-        cart.forEach(c => { txt += `⚡ ${c.name} - ${c.label} ($${c.price})%0A`; total += c.price; });
-        txt += `%0A*TOTAL: $${total}*`;
-        window.open(`https://wa.me/${DATA.phone}?text=${txt}`, "_blank");
+        if(!basket.length) return;
+        let msg = `🛒 *BJ'S STORE ORDER*\n\n`;
+        basket.forEach(it => msg += `• ${it.n}: ${it.l} ($${it.p})\n`);
+        window.open(`https://wa.me/96181094708?text=${encodeURIComponent(msg)}`);
     }
 
-    render();
+    renderStore();
 </script>
 </body>
 </html>
