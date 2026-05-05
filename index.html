@@ -1,8 +1,10 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BJ's Store | Premium Digital Goods</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&amp;family=Plus+Jakarta+Sans:wght@400;600;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --p: #00ff88;
@@ -29,7 +31,6 @@
             overflow-x: hidden;
         }
 
-        /* --- Navigation --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; background: rgba(3, 3, 3, 0.8); backdrop-filter: blur(15px);
@@ -38,7 +39,6 @@
         .brand { font-family: 'Syncopate', sans-serif; font-size: 1rem; cursor: pointer; letter-spacing: 1px; }
         .brand span { color: var(--p); }
 
-        /* --- Grid & Cards --- */
         .grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
@@ -65,7 +65,6 @@
         }
         .card img { width: 40px; height: 40px; object-fit: contain; }
 
-        /* --- Admin Dash --- */
         #admin-dash {
             display: none; padding: 30px 5%; background: #000; border-bottom: 2px solid var(--p);
             animation: slideDown 0.4s ease forwards;
@@ -82,7 +81,6 @@
             color: var(--p); padding: 6px; border-radius: 6px; text-align: center; font-weight: 800;
         }
 
-        /* --- Components --- */
         .btn { padding: 12px 15px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; transition: 0.2s; }
         .btn-p { background: var(--p); color: #000; box-shadow: 0 4px 15px var(--p-glow); }
         .btn-outline { background: transparent; border: 1px solid var(--p); color: var(--p); width: 100%; margin-top: 10px; }
@@ -137,67 +135,7 @@
 </nav>
 
 <!-- Main Store -->
-<div class="grid" id="store-grid"><div class="card">
-                <div>
-                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3 style="font-size:0.9rem">Roblox</h3>
-                </div>
-                <button class="btn btn-outline" onclick="openPack(0)">VIEW PACKS</button>
-            </div><div class="card">
-                <div>
-                    <div class="card-img-wrap"><img src="https://cdn-icons-png.flaticon.com/512/702/702115.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3 style="font-size:0.9rem">Riot Client</h3>
-                </div>
-                <button class="btn btn-outline" onclick="openPack(1)">VIEW PACKS</button>
-            </div><div class="card">
-                <div>
-                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic-Arts-Logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3 style="font-size:0.9rem">EA App</h3>
-                </div>
-                <button class="btn btn-outline" onclick="openPack(2)">VIEW PACKS</button>
-            </div><div class="card">
-                <div>
-                    <div class="card-img-wrap"><img src="https://cdn-icons-png.flaticon.com/512/702/702115.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3 style="font-size:0.9rem">FC 26 Points</h3>
-                </div>
-                <button class="btn btn-outline" onclick="openPack(3)">VIEW PACKS</button>
-            </div><div class="card">
-                <div>
-                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3 style="font-size:0.9rem">Steam Card</h3>
-                </div>
-                <button class="btn btn-outline" onclick="openPack(4)">VIEW PACKS</button>
-            </div><div class="card">
-                <div>
-                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3 style="font-size:0.9rem">Xbox Link</h3>
-                </div>
-                <button class="btn btn-outline" onclick="openPack(5)">VIEW PACKS</button>
-            </div><div class="card">
-                <div>
-                    <div class="card-img-wrap"><img src="https://www.svgrepo.com/show/353655/discord-icon.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3 style="font-size:0.9rem">Discord Nitro</h3>
-                </div>
-                <button class="btn btn-outline" onclick="openPack(6)">VIEW PACKS</button>
-            </div><div class="card">
-                <div>
-                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3 style="font-size:0.9rem">PlayStation</h3>
-                </div>
-                <button class="btn btn-outline" onclick="openPack(7)">VIEW PACKS</button>
-            </div><div class="card">
-                <div>
-                    <div class="card-img-wrap"><img src="https://cdn-icons-png.flaticon.com/512/702/702115.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3 style="font-size:0.9rem">Anghami</h3>
-                </div>
-                <button class="btn btn-outline" onclick="openPack(8)">VIEW PACKS</button>
-            </div><div class="card">
-                <div>
-                    <div class="card-img-wrap"><img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" onerror="this.src='https://cdn-icons-png.flaticon.com/512/702/702115.png'"></div>
-                    <h3 style="font-size:0.9rem">Spotify</h3>
-                </div>
-                <button class="btn btn-outline" onclick="openPack(9)">VIEW PACKS</button>
-            </div></div>
+<div class="grid" id="store-grid"></div>
 
 <!-- Overlay -->
 <div class="overlay" id="sys-overlay" onclick="closeAll()"></div>
@@ -226,23 +164,23 @@
 </div>
 
 <script>
+    // UPDATED PRICES FROM YOUR IMAGE
     const DEFAULT_DB = [
-        { n: "Roblox", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg", pk: [{l: "1000 Robux", p: "10"}, {l: "2000 Robux", p: "20"}] },
-        { n: "Riot Client", img: "https://upload.wikimedia.org/wikipedia/commons/1/11/Riot_Games_logo_icon.svg", pk: [{l: "1000 RP", p: "10"}, {l: "2500 RP", p: "25"}] },
-        { n: "EA App", img: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic-Arts-Logo.svg", pk: [{l: "$15 Card", p: "15"}, {l: "$25 Card", p: "25"}] },
+        { n: "Roblox", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg", pk: [{l: "1000 Robux", p: "12"}, {l: "2000 Robux", p: "23"}] },
+        { n: "Riot Client", img: "https://upload.wikimedia.org/wikipedia/commons/1/11/Riot_Games_logo_icon.svg", pk: [{l: "1000 RP", p: "14"}, {l: "2500 RP", p: "31"}] },
+        { n: "EA App", img: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Electronic-Arts-Logo.svg", pk: [{l: "$15 Card", p: "17"}, {l: "$25 Card", p: "28"}] },
         { n: "FC 26 Points", img: "https://media.rawg.io/media/games/052/052ccae9ef18037f485f6170087a5f48.jpg", pk: [{l: "1050 Points", p: "12"}, {l: "2800 Points", p: "25"}] },
-        { n: "Steam Card", img: "https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg", pk: [{l: "$10 Wallet", p: "11"}, {l: "$20 Wallet", p: "22"}] },
-        { n: "Xbox Link", img: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg", pk: [{l: "$10 Gift Card", p: "10"}, {l: "$25 Gift Card", p: "25"}] },
-        { n: "Discord Nitro", img: "https://www.svgrepo.com/show/353655/discord-icon.svg", pk: [{l: "1 Month Boost", p: "10"}] },
-        { n: "PlayStation", img: "https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg", pk: [{l: "$10 PSN", p: "11"}] },
-        { n: "Anghami", img: "https://upload.wikimedia.org/wikipedia/commons/b/b5/Anghami_logo.svg", pk: [{l: "1 Month Plus", p: "7"}, {l: "(HOT DEAL) 3 Months Plus", p: "10"}] },
-        { n: "Spotify", img: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg", pk: [{l: "1 Month Premium", p: "7"}] }
+        { n: "Steam Card", img: "https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg", pk: [{l: "$10 Wallet", p: "12"}, {l: "$20 Wallet", p: "23"}] },
+        { n: "Xbox Link", img: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Xbox_one_logo.svg", pk: [{l: "$10 Gift Card", p: "12"}, {l: "$25 Gift Card", p: "28"}] },
+        { n: "Discord Nitro", img: "https://www.svgrepo.com/show/353655/discord-icon.svg", pk: [{l: "1 Month Boost", p: "12"}] },
+        { n: "PlayStation", img: "https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg", pk: [{l: "$10 PSN", p: "12"}] },
+        { n: "Anghami", img: "https://upload.wikimedia.org/wikipedia/commons/b/b5/Anghami_logo.svg", pk: [{l: "1 Month Plus", p: "7"}, {l: "(HOT DEAL) 3 Months Plus", p: "11"}] },
+        { n: "Spotify", img: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg", pk: [{l: "1 Month Premium", p: "8"}] }
     ];
 
     let storeData = JSON.parse(localStorage.getItem("bj_store_v2")) || DEFAULT_DB;
     let basket = [];
 
-    // --- Core Logic ---
     function renderStore() {
         const grid = document.getElementById('store-grid');
         grid.innerHTML = '';
@@ -315,7 +253,6 @@
         updateCartUI();
     }
 
-    // --- Admin Functions ---
     function authAdmin() {
         const pin = prompt("Enter Admin PIN:");
         if(pin === "1234") {
@@ -348,14 +285,13 @@
     function updatePrice(itIdx, pkIdx, newVal) {
         storeData[itIdx].pk[pkIdx].p = newVal;
         localStorage.setItem("bj_store_v2", JSON.stringify(storeData));
-        renderStore(); // Update the main store view instantly
+        renderStore();
     }
 
     function closeAdmin() { 
         document.getElementById('admin-dash').style.display = 'none'; 
     }
 
-    // --- UI Helpers ---
     function toggleDrawer(id, state) {
         if(state) document.getElementById('sys-overlay').style.display = 'block';
         document.getElementById(id).classList.toggle('open', state);
@@ -378,8 +314,7 @@
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`);
     }
 
-    // Initialize
     renderStore();
 </script>
-
-</body></html>
+</body>
+</html>
